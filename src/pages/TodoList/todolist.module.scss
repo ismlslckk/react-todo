@@ -1,0 +1,43 @@
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: small;
+    min-height: 30px;
+    width: 100%;
+    border-top: solid 1px lightgray;
+    background-color: var(--white);
+
+    & .leftItemCount {
+        color: lightgray;
+        font-weight: bold;
+    }
+
+    & .clickable {
+        cursor: pointer;
+        border: unset;
+        background: var(--white);
+    }
+}
+
+.todoListBody {
+    min-height: 327px;
+    max-height: 327px;
+    min-width: 367px;
+    max-width: 367px;
+    background-color: var(--white);
+    overflow-y: scroll;
+    border-radius: 5px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+}
+
+.todoListBody::-webkit-scrollbar {
+    display: none;
+  }
+
+.selectedItem {
+    text-decoration: underline;
+}

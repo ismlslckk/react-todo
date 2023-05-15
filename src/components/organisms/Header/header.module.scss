@@ -1,0 +1,35 @@
+.header {
+    background-size: 100% 100%;
+    background-position: center;
+    background-image: url('/images/mountain.png');
+    padding: 44.86px 193px 81px 185px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.todoHeaderText {
+    color: var(--white);
+    font-weight: bold;
+    display: flex;
+}
+
+.inputTodo {
+    margin-left: 2px;
+}
+
+.todoFrame{
+    position: absolute;
+    margin-top: 100px;
+    border-radius: 5px;
+
+    & .information{
+        margin-top: 30px;
+        font-size: small;
+    }
+}
+
+.todoList{
+    background-color: var(--white);
+    border-radius: 5px;
+}

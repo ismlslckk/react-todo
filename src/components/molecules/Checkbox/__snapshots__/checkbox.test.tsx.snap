@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`checkbox component tests renders correctly 1`] = `
+<div
+  className="round"
+>
+  <input
+    className="form-control"
+    id="1"
+    type="checkbox"
+  />
+  <label
+    htmlFor="1"
+  />
+</div>
+`;

@@ -1,0 +1,46 @@
+.todoInputText {
+    background-color: transparent !important;
+    border: none !important;
+    pointer-events: none;
+    min-width: 290px;
+    max-width: 290px;
+    text-overflow: ellipsis;
+}
+
+.todoItemDiv {
+    display: flex;
+    flex-direction: row;
+    background: var(--white);
+    border-bottom: 1px solid lightgray;
+
+    &:hover .removeButton{
+        display: block;
+    }
+}
+
+.todoItemCheckboxDiv {
+    margin: 5px 0 0 10px
+}
+
+.todoItemInputDiv{
+    margin-left: 10px;
+}
+
+.todoItemRemove{
+    display: flex;
+    color:gray;
+    min-width: 25px;
+    align-items: center;
+    cursor: pointer;
+
+    & .removeButton{
+        display: none;
+        cursor: pointer;
+        border: unset;
+        background: transparent;
+    }
+}
+
+.todoItemTextDecoration{
+    text-decoration: line-through;
+}

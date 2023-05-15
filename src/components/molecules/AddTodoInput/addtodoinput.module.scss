@@ -1,0 +1,20 @@
+.addTodoInputText {
+    background-color: transparent !important;
+    border: none !important;
+    min-width: 300px!important;
+}
+
+.addTodoDiv {
+    display: flex;
+    background: var(--white);
+    border-radius: 5px;
+}
+
+.addTodoCheckboxDiv {
+    margin: 5px 0 0 10px
+}
+
+.addTodoInputDiv{
+    padding-right: 10px;
+    padding-left: 10px;
+}
