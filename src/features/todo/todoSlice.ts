@@ -16,7 +16,7 @@ const todoSlice = createSlice({
   reducers: {
     add: (state, action: PayloadAction<Todo>) => {
       if (action.payload.title) {
-        const newTodo = ({ id: v4(), completed: action.payload.completed, title: action.payload.title }) as Todo;
+        const newTodo = ({ id: v4(), completed: action.payload.completed, title: action.payload.title });
         state.todos.push(newTodo);
       }
     },

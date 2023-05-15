@@ -1,6 +1,10 @@
 import './innerwrapper.scss';
 
-const InnerWrapper = (props: any) => (
+type Props = {
+  children: JSX.Element | JSX.Element[],
+};
+
+const InnerWrapper = (props: Props) => (
   <div className="innerWrapper">
     {props.children}
   </div>

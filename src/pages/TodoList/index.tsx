@@ -9,6 +9,7 @@ import { clearCompleted, setSelectedTodoType, updateTodoList } from '@/features/
 import styles from './todolist.module.scss';
 import { TodoItem } from '@/components/molecules';
 import { Button } from '@/components/atoms';
+import { reorder } from '@/utils';
 
 const TodoList = () => {
   const todoState = useAppSelector((state) => state.todoState);
@@ -22,9 +23,9 @@ const TodoList = () => {
 
   const calculateLeftItemCount = () => {
     if (selectedTodoType === TodoType.ACTIVE) {
-      setLeftItemCount(listedRecords.filter((todo:Todo) => !todo.completed).length);
+      setLeftItemCount(listedRecords.filter((todo: Todo) => !todo.completed).length);
     } else if (selectedTodoType === TodoType.COMPLETED) {
-      setLeftItemCount(listedRecords.filter((todo:Todo) => todo.completed).length);
+      setLeftItemCount(listedRecords.filter((todo: Todo) => todo.completed).length);
     } else {
       setLeftItemCount(listedRecords.length);
     }
@@ -43,7 +44,7 @@ const TodoList = () => {
    */
   const listActiveRecors = () => {
     dispatch(setSelectedTodoType(TodoType.ACTIVE));
-    const records = [...todos.filter((item:Todo) => item.completed === false)];
+    const records = [...todos.filter((item: Todo) => item.completed === false)];
     setListedRecords(records);
   };
 
@@ -52,7 +53,7 @@ const TodoList = () => {
    */
   const listCompletedRecors = () => {
     dispatch(setSelectedTodoType(TodoType.COMPLETED));
-    const records = [...todos.filter((item:Todo) => item.completed === true)];
+    const records = [...todos.filter((item: Todo) => item.completed === true)];
     setListedRecords(records);
   };
 
@@ -64,7 +65,7 @@ const TodoList = () => {
     dispatch(setSelectedTodoType(TodoType.ACTIVE));
   };
 
-  const actions:any = {
+  const actions: any = {
     [`${TodoType.ALL}`]: listAllRecors,
     [`${TodoType.ACTIVE}`]: listActiveRecors,
     [`${TodoType.COMPLETED}`]: listCompletedRecors,
@@ -93,23 +94,7 @@ const TodoList = () => {
     }
   }, [selectedTodoType, todos]);
 
-  /**
-   *
-   * @param list
-   * @param startIndex
-   * @param endIndex
-   * @returns
-   */
-  const reorder = (list:any, startIndex:any, endIndex:any) => {
-    const result = Array.from(list);
-
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    return result;
-  };
-
-  const onDragEnd = (result:any) => {
+  const onDragEnd = (result: any) => {
     const { source, destination } = result;
 
     // dropped outside the list
@@ -117,29 +102,27 @@ const TodoList = () => {
       return;
     }
 
-    const items = reorder(listedRecords, source.index, destination.index);
-    let newState:any = [...listedRecords];
-    newState = items;
-    dispatch(updateTodoList(newState));
+    const items = reorder(listedRecords, source.index, destination.index) as Array<Todo>;
+    dispatch(updateTodoList(items));
   };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable key="draggable-todo-list" droppableId="draggable-todo-list">
-        {(provided:any) => (
+        {(provided: any) => (
           <div>
             <div
               className={styles.todoListBody}
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {listedRecords.map((item:any, index:any) => (
+              {listedRecords.map((item: any, index: any) => (
                 <Draggable
                   key={item.id}
                   draggableId={item.id}
                   index={index}
                 >
-                  {(providedInner:any) => (
+                  {(providedInner: any) => (
                     <div
                       ref={providedInner.innerRef}
                       {...providedInner.draggableProps}
@@ -154,10 +137,10 @@ const TodoList = () => {
             </div>
             <div className={styles.footer}>
               <span className={styles.leftItemCount}>{`${leftItemCount} items left`}</span>
-              <Button className={classNames(styles.clickable, { [`${styles.selectedItem}`]: selectedTodoType === TodoType.ALL })} onClick={() => listAllRecors()} type="button">All</Button>
-              <Button className={classNames(styles.clickable, { [`${styles.selectedItem}`]: selectedTodoType === TodoType.ACTIVE })} onClick={() => listActiveRecors()} type="Button">Active</Button>
-              <Button className={classNames(styles.clickable, { [`${styles.selectedItem}`]: selectedTodoType === TodoType.COMPLETED })} onClick={() => listCompletedRecors()} type="Button">Completed</Button>
-              <Button onClick={() => clearCompletedHandle()} type="button" className={styles.clickable}>Clear Completed</Button>
+              <Button className={classNames(styles.clickable, { [`${styles.selectedItem}`]: selectedTodoType === TodoType.ALL })} onClick={listAllRecors} type="button">All</Button>
+              <Button className={classNames(styles.clickable, { [`${styles.selectedItem}`]: selectedTodoType === TodoType.ACTIVE })} onClick={listActiveRecors} type="Button">Active</Button>
+              <Button className={classNames(styles.clickable, { [`${styles.selectedItem}`]: selectedTodoType === TodoType.COMPLETED })} onClick={listCompletedRecors} type="Button">Completed</Button>
+              <Button onClick={clearCompletedHandle} type="button" className={styles.clickable}>Clear Completed</Button>
             </div>
           </div>
         )}
