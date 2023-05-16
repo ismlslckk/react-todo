@@ -92,7 +92,7 @@ const TodoList = () => {
     if (selectedTodoType) {
       actions[selectedTodoType]();
     }
-  }, [selectedTodoType, todos]);
+  }, [todos]);
 
   const onDragEnd = (result: any) => {
     const { source, destination } = result;
