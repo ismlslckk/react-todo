@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`checkbox component tests renders correctly 1`] = `
+<div>
+  <div
+    className="todoListBody"
+    data-rbd-droppable-context-id="1"
+    data-rbd-droppable-id="draggable-todo-list"
+  />
+  <div
+    className="footer"
+  >
+    <span
+      className="leftItemCount"
+    >
+      0 items left
+    </span>
+    <button
+      className="clickable selectedItem"
+      onClick={[Function]}
+      type="button"
+    >
+      All
+    </button>
+    <button
+      className="clickable"
+      onClick={[Function]}
+      type="Button"
+    >
+      Active
+    </button>
+    <button
+      className="clickable"
+      onClick={[Function]}
+      type="Button"
+    >
+      Completed
+    </button>
+    <button
+      className="clickable"
+      onClick={[Function]}
+      type="button"
+    >
+      Clear Completed
+    </button>
+  </div>
+</div>
+`;

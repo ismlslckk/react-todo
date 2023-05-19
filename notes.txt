@@ -1,0 +1,25 @@
+npx lint-staged  : check eslint and stylint
+npm test : execute tests
+npm run deploy   : deploy current branch to github-pages
+
+jest requirements;
+
+type following code inside of package.json; 
+	"test": "jest --env=jsdom"
+
+dev dependencies;
+	"@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/jest": "^29.5.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.1",
+    "react-test-renderer": "^18.2.0", // to snapshot
+
+    babel.config.json
+    jest.config.ts
+
+
+// className={styles['todo-item-remove']}
