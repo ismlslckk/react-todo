@@ -3,15 +3,15 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import todoSlice from '@/features/todo/todoSlice';
 import { Todo } from '@/types';
 
-const setLocalStorage = (list:Todo[]) => {
+const setLocalStorage = (list: Todo[]) => {
   localStorage.setItem('todos', JSON.stringify(list));
 };
 
-const localStorageRepositoryMiddleware: Middleware = ({ getState }) => (next:any) => (action:any) => {
-  const { todoState } = getState();
+const localStorageRepositoryMiddleware: Middleware = (api) => (next) => (action) => {
+  const result = next(action);
+  const { todoState } = api.getState();
   setLocalStorage(todoState.todos);
-  const returnValue = next(action);
-  return returnValue;
+  return result;
 };
 
 const store = configureStore({

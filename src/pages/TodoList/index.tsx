@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '@/store';
@@ -17,26 +16,13 @@ const TodoList = () => {
 
   const dispatch = useAppDispatch();
 
-  const [leftItemCount, setLeftItemCount] = useState(0);
-
-  const [listedRecords, setListedRecords] = useState<Todo[]>([]);
-
-  const calculateLeftItemCount = () => {
-    if (selectedTodoType === TodoType.ACTIVE) {
-      setLeftItemCount(listedRecords.filter((todo: Todo) => !todo.completed).length);
-    } else if (selectedTodoType === TodoType.COMPLETED) {
-      setLeftItemCount(listedRecords.filter((todo: Todo) => todo.completed).length);
-    } else {
-      setLeftItemCount(listedRecords.length);
-    }
-  };
+  const listedRecords = selectedTodoType === TodoType.ALL ? todos : todos.filter((item: Todo) => item.completed === (selectedTodoType === TodoType.COMPLETED));
 
   /**
    *
    */
   const listAllRecors = () => {
     dispatch(setSelectedTodoType(TodoType.ALL));
-    setListedRecords([...todos]);
   };
 
   /**
@@ -44,8 +30,6 @@ const TodoList = () => {
    */
   const listActiveRecors = () => {
     dispatch(setSelectedTodoType(TodoType.ACTIVE));
-    const records = [...todos.filter((item: Todo) => item.completed === false)];
-    setListedRecords(records);
   };
 
   /**
@@ -53,8 +37,6 @@ const TodoList = () => {
    */
   const listCompletedRecors = () => {
     dispatch(setSelectedTodoType(TodoType.COMPLETED));
-    const records = [...todos.filter((item: Todo) => item.completed === true)];
-    setListedRecords(records);
   };
 
   /**
@@ -64,35 +46,6 @@ const TodoList = () => {
     dispatch(clearCompleted());
     dispatch(setSelectedTodoType(TodoType.ACTIVE));
   };
-
-  const actions: any = {
-    [`${TodoType.ALL}`]: listAllRecors,
-    [`${TodoType.ACTIVE}`]: listActiveRecors,
-    [`${TodoType.COMPLETED}`]: listCompletedRecors,
-  };
-
-  /**
-   *
-   */
-  useEffect(() => {
-    dispatch(setSelectedTodoType(TodoType.ALL));
-  }, []);
-
-  /**
-   *
-   */
-  useEffect(() => {
-    calculateLeftItemCount();
-  }, [listedRecords]);
-
-  /**
-   *
-   */
-  useEffect(() => {
-    if (selectedTodoType) {
-      actions[selectedTodoType]();
-    }
-  }, [todos]);
 
   const onDragEnd = (result: any) => {
     const { source, destination } = result;
@@ -136,7 +89,7 @@ const TodoList = () => {
               {provided.placeholder}
             </div>
             <div className={styles.footer}>
-              <span className={styles.leftItemCount}>{`${leftItemCount} items left`}</span>
+              <span className={styles.leftItemCount}>{`${listedRecords.length} items left`}</span>
               <Button className={classNames(styles.clickable, { [`${styles.selectedItem}`]: selectedTodoType === TodoType.ALL })} onClick={listAllRecors} type="button">All</Button>
               <Button className={classNames(styles.clickable, { [`${styles.selectedItem}`]: selectedTodoType === TodoType.ACTIVE })} onClick={listActiveRecors} type="Button">Active</Button>
               <Button className={classNames(styles.clickable, { [`${styles.selectedItem}`]: selectedTodoType === TodoType.COMPLETED })} onClick={listCompletedRecors} type="Button">Completed</Button>
